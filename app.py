@@ -3,12 +3,19 @@ import streamlit as st
 # ページの設定
 st.set_page_config(page_title="てぃもさん用カウントアップ", page_icon="🔢")
 
-# タイトルの表示
-st.title("てぃもさん用カウントアップ")
-
 # セッション状態の初期化
 if 'count' not in st.session_state:
     st.session_state.count = 0
+
+# タイトルの表示
+st.title("てぃもさん用カウントアップ")
+
+# カウント1ごとにウサギを表示（現在のカウントの上）
+rabbits = "🐰" * max(0, st.session_state.count)
+if rabbits:
+    st.write(rabbits)
+else:
+    st.write("(ウサギはいません)")
 
 # カウントアップ関数の定義
 def increment_counter():
@@ -21,10 +28,6 @@ def decrement_counter():
 # 数値入力の更新
 def update_count():
     st.session_state.count = st.session_state.input_val
-
-# セッション状態の初期化
-if 'count' not in st.session_state:
-    st.session_state.count = 0
 
 # 中央にカウントを表示
 st.write("---")
@@ -42,3 +45,7 @@ with col2:
     st.button("カウントダウン", on_click=decrement_counter, use_container_width=True)
 
 st.write("---")
+
+# 雪うさぎのカウント（10個につき1増加）
+snow_rabbit_count = max(0, st.session_state.count // 10)
+st.write(f"雪うさぎ {snow_rabbit_count}個")
