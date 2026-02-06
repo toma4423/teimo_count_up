@@ -10,10 +10,15 @@ if 'count' not in st.session_state:
 # タイトルの表示
 st.title("てぃもさん用カウントアップ")
 
-# カウント1ごとにウサギを表示（現在のカウントの上）
-rabbits = "🐰" * max(0, st.session_state.count)
+# 10個でリセットされるウサギの表示
+# 10個溜まった瞬間に表示をリセットするため、余りを計算
+display_rabbits_count = st.session_state.count % 10
+rabbits = "🐇" * max(0, display_rabbits_count)
+
 if rabbits:
     st.write(rabbits)
+elif st.session_state.count > 0 and display_rabbits_count == 0:
+    st.write("(ウサギが10個溜まってリセットされました！)")
 else:
     st.write("(ウサギはいません)")
 
